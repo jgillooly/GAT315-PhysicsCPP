@@ -275,6 +275,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\integrate.h" />
     <ClInclude Include="src\Mathf.h" />
     <ClInclude Include="src\World.h" />
   </ItemGroup>

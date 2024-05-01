@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <World.h>
+#include "integrate.h"
 
 #define MAX_BODIES 1000
 
@@ -25,9 +26,25 @@ int main(void)
 		if (IsMouseButtonDown(0)) {
 			Body* newbody = CreateBody();
 			newbody->Position = position;
-			newbody->Velocity = CreateVector2(GetRandomFloatValue(-5, 5), GetRandomFloatValue(-5, 5));
+			newbody->mass = GetRandomFloatValue(1, 10);
+			//ApplyForce(newbody, CreateVector2(GetRandomFloatValue(-50, 50), GetRandomFloatValue(-50, 50)));
+			
+			//newbody->Velocity = );
 		}
 
+
+		Body* currentbody = jgBodies;
+		while (currentbody) {
+			ApplyForce(currentbody, CreateVector2(0, -200));
+			currentbody = currentbody->next;
+		}
+
+		currentbody = jgBodies;
+		while (currentbody) {
+			ExplicitEuler(currentbody, dt);
+			ClearForce(currentbody);
+			currentbody = currentbody->next;
+		}
 		//draw
 		BeginDrawing();
 		ClearBackground(BLACK);
@@ -36,10 +53,11 @@ int main(void)
 		DrawText(TextFormat("FRAME: (%.4f)", dt), 10, 30, 20, LIME);
 
 		DrawCircle((int)position.x, (int)position.y, 10, RED);
-		Body* currentbody = jgBodies;
+		//draw bodies
+		currentbody = jgBodies;
 		while (currentbody) {
-			currentbody->Position = Vector2Add(currentbody->Position, currentbody->Velocity);
-			DrawCircle((int)currentbody->Position.x, (int)currentbody->Position.y, 10, RED);
+			
+			DrawCircle((int)currentbody->Position.x, (int)currentbody->Position.y, currentbody->mass, RED);
 			currentbody = currentbody->next;
 		}
 		EndDrawing();

@@ -15,6 +15,9 @@ typedef struct Body
 	Vector2 Velocity;
 	Vector2 Force;
 
+	float mass;
+	float inverseMass;
+
 	struct Body* next;
 	struct Body* prev;
 } Body;
