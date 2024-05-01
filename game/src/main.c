@@ -13,8 +13,6 @@ int main(void)
 {
 	InitWindow(1280, 720, "Physics Engine");
 	SetTargetFPS(60);
-	
-	int bodyCount = 0;
 
 	//game loop
 	while (!WindowShouldClose())
@@ -38,7 +36,7 @@ int main(void)
 		DrawText(TextFormat("FRAME: (%.4f)", dt), 10, 30, 20, LIME);
 
 		DrawCircle((int)position.x, (int)position.y, 10, RED);
-		Body* currentbody = bodies;
+		Body* currentbody = jgBodies;
 		while (currentbody) {
 			currentbody->Position = Vector2Add(currentbody->Position, currentbody->Velocity);
 			DrawCircle((int)currentbody->Position.x, (int)currentbody->Position.y, 10, RED);
@@ -47,8 +45,8 @@ int main(void)
 		EndDrawing();
 	}
 	CloseWindow();
-	while (bodies) {
-		free(bodies);
-	}
+	//while (jgBodies) {
+	//	free(jgBodies);
+	//}
 	return 0;
 }
