@@ -47,6 +47,8 @@ int main(void)
 		EndDrawing();
 	}
 	CloseWindow();
-	free(bodies);
+	while (bodies) {
+		free(bodies);
+	}
 	return 0;
 }
