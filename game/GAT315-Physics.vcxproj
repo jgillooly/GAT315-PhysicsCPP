@@ -265,7 +265,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Body.c" />
     <ClCompile Include="src\Body.h" />
+    <ClCompile Include="src\Force.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\World.c" />
   </ItemGroup>
@@ -275,6 +277,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Force.h" />
     <ClInclude Include="src\integrate.h" />
     <ClInclude Include="src\Mathf.h" />
     <ClInclude Include="src\World.h" />

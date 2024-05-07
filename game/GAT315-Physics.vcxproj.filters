@@ -18,6 +18,12 @@
     <ClCompile Include="src\World.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Body.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Force.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Mathf.h">
@@ -27,6 +33,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\integrate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Force.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

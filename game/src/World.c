@@ -6,6 +6,7 @@
 
 Body* jgBodies = NULL;
 int jgBodyCount = 0;
+Vector2 jgGravity;
 
 Body* CreateBody() {
 	Body* body = (Body*)malloc(sizeof(Body));
