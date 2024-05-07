@@ -77,7 +77,7 @@ int main(void)
 
 		Body* currentbody = jgBodies;
 		//apply gravitation
-		ApplyGravitation(jgBodies, 10);
+		//ApplyGravitation(jgBodies, 10);
 
 		for (Body* body = jgBodies; body; body = body->next) {
 			Step(body, dt);
