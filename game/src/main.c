@@ -52,6 +52,7 @@ int main(void)
 			Body* newbody = CreateBody(ConvertScreenToWorld(position), GetRandomFloatValue(state.MassMinValue, state.MassMaxValue), state.BodyTypeActive);
 			AddBody(newbody);
 			newbody->gravityScale = state.GravityScaleValue;
+			newbody->restitution = 1.0f;
 			int num = (rand() % (3 - 1 + 1)) + 1;
 			switch (num)
 			{
@@ -105,6 +106,8 @@ int main(void)
 		//collision
 		ncContact_t* Contacts = NULL;
 		CreateContacts(jgBodies, &Contacts);
+		SeparateContacts(Contacts);
+		ResolveContacts(Contacts);
 
 
 		currentbody = jgBodies;
@@ -140,7 +143,9 @@ int main(void)
 
 		for (ncContact_t* contact = Contacts; contact; contact = contact->next) {
 			Vector2 screen = ConvertWorldToScreen(contact->body1->Position);
-			DrawCircle((int)screen.x, (int)screen.y, ConvertWorldToPixel(contact->body1->mass*0.5f), RED);
+			Vector2 screen2 = ConvertWorldToScreen(contact->body2->Position);
+			DrawCircleLines((int)screen.x, (int)screen.y, ConvertWorldToPixel(contact->body1->mass*0.5f), RED);
+			DrawCircleLines((int)screen2.x, (int)screen2.y, ConvertWorldToPixel(contact->body2->mass*0.5f), RED);
 		}
 		DrawEditor(position);
 		EndDrawing();

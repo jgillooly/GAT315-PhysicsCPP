@@ -43,7 +43,7 @@ inline void ApplyForce(Body* body, Vector2 force, jgForceMode fm) {
 		break;
 	case FM_IMPULSE:
 		//applies a sudden change in momentum
-		body->Velocity = Vector2Scale(force, body->inverseMass);
+		body->Velocity = Vector2Add(Vector2Scale(force, body->inverseMass), body->Velocity);
 		break;
 	case FM_VELOCITY:
 		body->Velocity = force;
