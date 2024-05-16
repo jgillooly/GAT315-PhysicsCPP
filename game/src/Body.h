@@ -26,6 +26,7 @@ typedef struct Body
 	float inverseMass;
 	float gravityScale;
 	float damping;
+	float restitution;
 
 	Color color;
 

@@ -266,9 +266,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Body.c" />
+    <ClCompile Include="Spring.c" />
     <ClCompile Include="src\Body.h" />
+    <ClCompile Include="src\Collision.c" />
+    <ClCompile Include="src\contact.c" />
+    <ClCompile Include="src\editor.c" />
     <ClCompile Include="src\Force.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\render.c" />
     <ClCompile Include="src\World.c" />
   </ItemGroup>
   <ItemGroup>
@@ -277,9 +282,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Spring.h" />
+    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\contact.h" />
+    <ClInclude Include="src\editor.h" />
     <ClInclude Include="src\Force.h" />
     <ClInclude Include="src\integrate.h" />
     <ClInclude Include="src\Mathf.h" />
+    <ClInclude Include="src\render.h" />
     <ClInclude Include="src\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

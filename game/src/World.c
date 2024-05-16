@@ -8,12 +8,23 @@ Body* jgBodies = NULL;
 int jgBodyCount = 0;
 Vector2 jgGravity;
 
-Body* CreateBody() {
+Body* CreateBody(Vector2 position, float mass, bodyType bt) {
 	Body* body = (Body*)malloc(sizeof(Body));
 	assert(body);
 
 	memset(body, 0, sizeof(Body));
 
+	body->Position = position;
+	body->mass = mass;
+	body->type = bt;
+	body->inverseMass = (bt == BT_DYNAMIC) ? 1 / mass : 0;
+	
+
+	return body;
+}
+
+void AddBody(Body* body) {
+	assert(body);
 	body->prev = NULL;
 	body->next = jgBodies;
 	if (jgBodies != NULL) {
@@ -21,10 +32,8 @@ Body* CreateBody() {
 	}
 	jgBodyCount++;
 	jgBodies = body;
-
-
-	return body;
 }
+
 void DestroyBody(Body* body) {
 	assert(body);
 	if (body->prev != NULL) body->prev->next = body->next;
