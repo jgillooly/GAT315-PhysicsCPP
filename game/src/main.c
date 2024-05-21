@@ -23,11 +23,16 @@ int main(void)
 	InitEditor();
 	SetTargetFPS(60);
 
+
+
 	//initialize world
 	jgGravity = (Vector2){ 0,-10 };
 
 	Body* selectedBody = NULL;
 	Body* connectBody = NULL;
+
+	float fixedTimestep = 1.0f / 60.0f;
+	float timeaccumulator = 0;
 
 	Vector2 prevPos = Vector2Zero();
 	//game loop
@@ -96,27 +101,30 @@ int main(void)
 		Body* currentbody = jgBodies;
 		//apply gravitation
 		//ApplyGravitation(jgBodies, 20);
+		timeaccumulator += dt;
+		while (timeaccumulator >= fixedTimestep) {
+			timeaccumulator -= fixedTimestep;
+			ApplySpringForce(jgsprings);
 
-		ApplySpringForce(jgsprings);
+			for (Body* body = jgBodies; body; body = body->next) {
+				Step(body, dt);
+			}
 
-		for (Body* body = jgBodies; body; body = body->next) {
-			Step(body, dt);
+			//collision
+			ncContact_t* Contacts = NULL;
+			DestroyAllContacts(Contacts);
+			CreateContacts(jgBodies, &Contacts);
+			SeparateContacts(Contacts);
+			ResolveContacts(Contacts);
+
+
+			currentbody = jgBodies;
+			while (currentbody) {
+
+
+				currentbody = currentbody->next;
+			}
 		}
-
-		//collision
-		ncContact_t* Contacts = NULL;
-		CreateContacts(jgBodies, &Contacts);
-		SeparateContacts(Contacts);
-		ResolveContacts(Contacts);
-
-
-		currentbody = jgBodies;
-		while (currentbody) {
-			
-			
-			currentbody = currentbody->next;
-		}
-
 
 		//draw
 		BeginDrawing();
