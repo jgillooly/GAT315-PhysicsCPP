@@ -24,6 +24,8 @@ typedef struct {
     bool simulate;
     float timescale;
     bool reset;
+    float stiffness;
+    float restitution;
 
     // Custom state variables (depend on development software)
     // NOTE: This variables should be added manually if required

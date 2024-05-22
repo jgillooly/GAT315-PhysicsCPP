@@ -63,7 +63,7 @@ int main(void)
 			Body* newbody = CreateBody(ConvertScreenToWorld(position), GetRandomFloatValue(state.MassMinValue, state.MassMaxValue), state.BodyTypeActive);
 			AddBody(newbody);
 			newbody->gravityScale = state.GravityScaleValue;
-			newbody->restitution = 1.0f;
+			newbody->restitution = state.restitution;
 			int num = (rand() % (3 - 1 + 1)) + 1;
 			switch (num)
 			{
@@ -88,7 +88,7 @@ int main(void)
 		}
 		if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT) && connectBody) {
 			if (selectedBody && selectedBody != connectBody) {
-				jgSpring_t* spring = CreateSpring(selectedBody, connectBody, 1, 10);
+				jgSpring_t* spring = CreateSpring(selectedBody, connectBody, 1, state.stiffness);
 				AddSpring(spring);
 			}
 		}
@@ -110,7 +110,7 @@ int main(void)
 			if (connectBody)
 			{
 				Vector2 world = ConvertScreenToWorld(position);
-				ApplySpringForcePosition(world, connectBody, 0, 20, 5);
+				ApplySpringForcePosition(world, connectBody, 0, state.stiffness, 5);
 			}
 		}
 

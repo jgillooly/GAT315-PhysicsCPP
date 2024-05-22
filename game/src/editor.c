@@ -46,6 +46,8 @@ void InitEditor()
 	state.simulate = true;
 	state.timescale = 60;
 	state.reset = false;
+	state.stiffness = 10;
+	state.restitution = 0.4f;
 }
 
 void UpdateEditor(Vector2 position)
@@ -75,6 +77,9 @@ void DrawEditor(Vector2 mousePosition)
 		if (GuiButton((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 250, 120, 24 }, "SIMULATE")) state.simulate = !state.simulate;
 		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 300, 120, 16 }, "Timescale", EDITOR_DATA(state.timescale), 1, 120);
 		state.reset = GuiButton((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 350, 120, 24 }, "RESET");
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 400, 120, 16 }, "Stiffness", EDITOR_DATA(state.stiffness), 1, 100);
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 450, 120, 16 }, "Restitution", EDITOR_DATA(state.restitution), 0, 2);
+
 
 
 
