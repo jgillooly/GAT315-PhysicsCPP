@@ -20,3 +20,4 @@ void AddSpring(jgSpring_t* body);
 void DestroySpring(jgSpring_t* body);
 
 void ApplySpringForce(jgSpring_t* spring);
+void ApplySpringForcePosition(struct Vector2 position, struct Body* body, float restLength, float k, float damping);

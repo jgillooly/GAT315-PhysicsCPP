@@ -43,6 +43,9 @@ void InitEditor()
 	state.BodyTypeEditMode = false;
 	state.BodyTypeActive = 0;
 	state.Dampening = 0;
+	state.simulate = true;
+	state.timescale = 60;
+	state.reset = false;
 }
 
 void UpdateEditor(Vector2 position)
@@ -64,11 +67,14 @@ void DrawEditor(Vector2 mousePosition)
 
 
 		state.WindowBox001Active = !GuiWindowBox((Rectangle) { state.anchor02.x + 0, state.anchor02.y + 0, 256, 496 }, "SAMPLE TEXT");
-		GuiSlider((Rectangle) { state.anchor02.x + 112, state.anchor02.y + 40, 120, 16 }, "MassMin", NULL, & state.MassMinValue, 0, 100);
-		GuiSlider((Rectangle) { state.anchor02.x + 112, state.anchor02.y + 72, 120, 16 }, "MassMax", NULL, & state.MassMaxValue, 0, 100);
-		GuiSlider((Rectangle) { state.anchor02.x + 112, state.anchor02.y + 104, 120, 16 }, "GravityScale", NULL, & state.GravityScaleValue, 0, 10);
-		GuiSlider((Rectangle) { state.anchor02.x + 112, state.anchor02.y + 204, 120, 16 }, "Dampening", NULL, & state.Dampening, 0, 10);
-		if (GuiDropdownBox((Rectangle) { state.anchor02.x + 112, state.anchor02.y + 152, 120, 24 }, "Static; Kinematic; Dynamic", & state.BodyTypeActive, state.BodyTypeEditMode)) state.BodyTypeEditMode = !state.BodyTypeEditMode;
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 40, 120, 16 }, "MassMin", EDITOR_DATA(state.MassMinValue), 0, 100);
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 72, 120, 16 }, "MassMax", EDITOR_DATA(state.MassMaxValue), 0, 100);
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 104, 120, 16 }, "GravityScale", EDITOR_DATA(state.GravityScaleValue), 0, 10);
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 204, 120, 16 }, "Dampening", EDITOR_DATA(state.Dampening), 0, 10);
+		if (GuiDropdownBox((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 152, 120, 24 }, "Static; Kinematic; Dynamic", & state.BodyTypeActive, state.BodyTypeEditMode)) state.BodyTypeEditMode = !state.BodyTypeEditMode;
+		if (GuiButton((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 250, 120, 24 }, "SIMULATE")) state.simulate = !state.simulate;
+		GuiSlider((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 300, 120, 16 }, "Timescale", EDITOR_DATA(state.timescale), 1, 120);
+		state.reset = GuiButton((Rectangle) { state.anchor02.x + 85, state.anchor02.y + 350, 120, 24 }, "RESET");
 
 
 

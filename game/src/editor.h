@@ -21,6 +21,9 @@ typedef struct {
     bool BodyTypeEditMode;
     int BodyTypeActive;
     float Dampening;
+    bool simulate;
+    float timescale;
+    bool reset;
 
     // Custom state variables (depend on development software)
     // NOTE: This variables should be added manually if required

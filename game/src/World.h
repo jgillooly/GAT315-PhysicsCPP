@@ -8,3 +8,4 @@ extern Vector2 jgGravity;
 Body* CreateBody(Vector2 position, float mass, bodyType bt);
 void AddBody(Body* body);
 void DestroyBody(Body* body);
+void DestroyAllBodies();

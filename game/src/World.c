@@ -42,3 +42,18 @@ void DestroyBody(Body* body) {
 	jgBodyCount--;
 	free(body);
 }
+
+void DestroyAllBodies()
+{
+	if (jgBodies == NULL) return;
+	Body* body = jgBodies;
+	while (body != NULL)
+	{
+		Body* next = body->next;
+		free(body);
+		body = next;
+	}
+
+	jgBodies = NULL;
+	jgBodyCount = 0;
+}

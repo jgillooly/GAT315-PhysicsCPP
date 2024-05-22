@@ -41,6 +41,12 @@ int main(void)
 		//update
 		float dt = GetFrameTime();
 		float fps = (float)GetFPS();
+		fixedTimestep = 1.0f / state.timescale;
+
+		if (state.reset) {
+			state.reset = false;
+			DestroyAllBodies();
+		}
 		
 		Vector2 position = GetMousePosition();
 		ncScreenZoom += GetMouseWheelMove() * 0.25f;
@@ -97,13 +103,31 @@ int main(void)
 			newbody->color = ORANGE;
 		}*/
 
+		if (IsKeyDown(KEY_LEFT_ALT))
+		{
+			if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT) && selectedBody) connectBody = selectedBody;
+			if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && connectBody) DrawLineBodyToPosition(connectBody, position);
+			if (connectBody)
+			{
+				Vector2 world = ConvertScreenToWorld(position);
+				ApplySpringForcePosition(world, connectBody, 0, 20, 5);
+			}
+		}
 
+		if (IsMouseButtonReleased(MOUSE_BUTTON_RIGHT))
+		{
+			selectedBody = NULL;
+			connectBody = NULL;
+		}
+
+		ncContact_t* Contacts = NULL;
 		Body* currentbody = jgBodies;
 		//apply gravitation
 		//ApplyGravitation(jgBodies, 20);
 		timeaccumulator += dt;
 		while (timeaccumulator >= fixedTimestep) {
 			timeaccumulator -= fixedTimestep;
+			if (!state.simulate) continue;
 			ApplySpringForce(jgsprings);
 
 			for (Body* body = jgBodies; body; body = body->next) {
@@ -111,8 +135,7 @@ int main(void)
 			}
 
 			//collision
-			ncContact_t* Contacts = NULL;
-			DestroyAllContacts(Contacts);
+			//DestroyAllContacts(Contacts);
 			CreateContacts(jgBodies, &Contacts);
 			SeparateContacts(Contacts);
 			ResolveContacts(Contacts);
